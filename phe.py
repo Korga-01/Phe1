@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 from openfhe import *
 
 # Настройка контекста OpenFHE
-params = CryptoParamsCKKSRNS()
+params = CCParamsCKKSRNS()
 params.SetMultiplicativeDepth(5)
 params.SetScalingModSize(50)
 params.SetScalingTechnique(ScalingTechnique.FLEXIBLEAUTO)

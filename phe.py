@@ -85,13 +85,13 @@ class App(QWidget):
 
         # Кнопки для шифрования и дешифрования
         encrypt_button = QPushButton("Шифровать данные", self)
-        encrypt_button.clicked.connect(lambda: encrypt_data())
+        encrypt_button.clicked.connect(lambda: self.update_data(encrypt_data))
 
         decrypt_button = QPushButton("Дешифровать данные", self)
-        decrypt_button.clicked.connect(lambda: update_encrypted_data())
+        decrypt_button.clicked.connect(lambda: self.update_data(decrypt_data))
 
         update_button = QPushButton("Обновить зашифрованные данные", self)
-        update_button.clicked.connect(update_encrypted_data)
+        update_button.clicked.connect(lambda: self.update_data(update_encrypted_data))
 
         # Размещение виджетов
         layout = QVBoxLayout()
@@ -105,6 +105,16 @@ class App(QWidget):
         layout.addLayout(button_layout)
 
         self.setLayout(layout)
+
+    # Функция для обновления данных
+    def update_data(self, operation):
+        encrypted_data = encrypt_data()
+        decrypted_data = operation(encrypted_data)
+        
+        # Обновляем таблицу с новыми данными
+        for i, val in enumerate(decrypted_data):
+            df.at[i, "Account Balance"] = val
+        update_table()
 
 # Запуск приложения
 if __name__ == '__main__':
